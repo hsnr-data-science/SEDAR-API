@@ -1,11 +1,11 @@
 # SedarAPI
 
-Eine abstrahierende Schnittstelle für den Zugriff auf eine API.
+An abstracted interface for accessing an API.
 
 ## Usage
 
-1. In den Ordner "sedarapi_package" wechseln
+1. Navigate to the "sedarapi_package" folder.
 
-2. "pip install ." ausführen (auf den Punkt achten)
+2. Execute "pip install ." (pay attention to the period).
 
-3. Nun kann die Bibliothek in Python-Projekten über "from sedarapi import SedarAPI" genutzt werden.
+3. The library can now be used in Python projects with the import statement: "from sedarapi import SedarAPI".
