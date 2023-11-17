@@ -1,0 +1,4517 @@
+{
+	"info": {
+		"_postman_id": "ac2d121e-a982-4703-a2fb-0eed0532ba82",
+		"name": "SEDAR Full Collection",
+		"description": "## Usage\n\nThis documentation is partly automated. For this to work, please start with the following steps when using this collection\n\n1. Fill out the Collection Variables \"SEDAR-IP\", \"SEDAR-PORT\", \"E-Mail\" and \"Password\"\n2. Execute the API-Call \"Authentication\" -> \"Login (Local)\"\n3. Execute the API-Call \"Workspace\" -> \"Get All Workspaces\"\n    \n\nAfter those steps this documentation will automatically save all required parameters for consequtive Calls to work. The prerequisite API-Calls can be viewed in the \"Documentation\" tab of each API-Call.\n\nPostman is also able to generate an automated documentation of the API. This documentation can be found by moving the mouse pointer over the Collection and clicking on the three dots (⋮) and then on \"View Documentation\".",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28043889"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login (Local)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Reset all Session related Collection Variables\r",
+									"var variables = pm.collectionVariables.toObject();\r",
+									"\r",
+									"for (var variable in variables) {\r",
+									"    if (variable.startsWith('_')) {\r",
+									"        pm.collectionVariables.unset(variable);\r",
+									"    }\r",
+									"}\r",
+									"\r",
+									"// Initialize common Collection variables\r",
+									"pm.collectionVariables.set(\"_language\", \"English\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{E-Mail}}\",\r\n    \"password\": \"{{Password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/auth/login",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\nNone"
+					},
+					"response": []
+				},
+				{
+					"name": "Login (via GitHub) [TBD]",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Reset all Session related Collection Variables\r",
+									"var variables = pm.collectionVariables.toObject();\r",
+									"for (var variable in variables) {\r",
+									"    if (variable.startsWith('_')) {\r",
+									"        pm.collectionVariables.unset(variable);\r",
+									"    }\r",
+									"}\r",
+									"\r",
+									"// Placeholder: Set the '_gitlab_code' Collection Variable\r",
+									"pm.collectionVariables.set(\"_gitlab_code\", \"Null\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\":\"{{_gitlab_code}}\",\r\n    \"state\":\"STATE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GitLab-IP}}:{{GitLab-Port}}/gitlab/users/sign_in",
+							"host": [
+								"{{GitLab-IP}}"
+							],
+							"port": "{{GitLab-Port}}",
+							"path": [
+								"gitlab",
+								"users",
+								"sign_in"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\nNone"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Reset all Session related Collection Variables\r",
+									"var variables = pm.collectionVariables.toObject();\r",
+									"\r",
+									"for (var variable in variables) {\r",
+									"    if (variable.startsWith('_')) {\r",
+									"        pm.collectionVariables.unset(variable);\r",
+									"    }\r",
+									"}\r",
+									"\r",
+									"// Initialize common Collection variables\r",
+									"pm.collectionVariables.set(\"_language\", \"English\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/auth/logout",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication --> Login(Local)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Alive",
+			"item": [
+				{
+					"name": "Alive (All Components)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/alive",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"alive"
+							]
+						},
+						"description": "Vitality check of all components\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				},
+				{
+					"name": "Alive (Hive)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/alive-hive",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"alive-hive"
+							]
+						},
+						"description": "Vitality check of all components\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Logs",
+			"item": [
+				{
+					"name": "Access Logs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/logs/access",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"logs",
+								"access"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				},
+				{
+					"name": "Access Logs Download",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/logs/access/download",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"logs",
+								"access",
+								"download"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				},
+				{
+					"name": "Error Logs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/logs/error",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"logs",
+								"error"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				},
+				{
+					"name": "Error Logs Download",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/logs/error/download",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"logs",
+								"error",
+								"download"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Stats",
+			"item": [
+				{
+					"name": "Get Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/stats/",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"stats",
+								""
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication Login(Local)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tests",
+			"item": [
+				{
+					"name": "Get Test Results",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/test/",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"test",
+								""
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				},
+				{
+					"name": "Start Test",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/test/start",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"test",
+								"start"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Jupyterhub",
+			"item": [
+				{
+					"name": "Check Container",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Save the jupyterhub-session-id as a collection variable\r",
+									"var cookies = pm.cookies.toObject();\r",
+									"if (cookies['jupyterhub-session-id']) {\r",
+									"    pm.collectionVariables.set(\"_jupyter_session\", cookies['jupyterhub-session-id']);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/jupyterhub/checkContainer",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"jupyterhub",
+								"checkContainer"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Notebook To HDFS [TBD]",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workspace_id\":\"{{_workspace_Default Workspace}}\",\r\n    \"session_id\":\"\",\r\n    \"dataset_id\":\"{{_created_dataset}}\",\r\n    \"item_id\":\"{{_dataset_created_notebook}}\",\r\n    \"username\":\"{{E-Mail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/jupyterhub/addNotebookToHDFS",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"jupyterhub",
+								"addNotebookToHDFS"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- Dataset -> Notebooks -> Create Notebook"
+					},
+					"response": []
+				},
+				{
+					"name": "Copy Notebook From HDFS To Container [TBD]",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workspace_id\":\"{{_workspace_Default Workspace}}\",\r\n    \"session_id\":\"\",\r\n    \"dataset_id\":\"{{_created_dataset}}\",\r\n    \"item_id\":\"\",\r\n    \"username\":\"{{E-Mail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/jupyterhub/copyNbFromHDFStoContainer",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"jupyterhub",
+								"copyNbFromHDFStoContainer"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- ..."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Misc",
+			"item": [
+				{
+					"name": "Extract Schema [TBD]",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/misc/{{_dataset_datasource}}/extract_schema",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"misc",
+								"{{_dataset_datasource}}",
+								"extract_schema"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				},
+				{
+					"name": "Add ML Run To Notebook [TBD]",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"notebook_id\":\"{{_dataset_created_notebook}}\",\r\n    \"run_id\":\"{{_experiment_run}}\",\r\n    \"experiment_id\":\"{{_experiment}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/add-mlrun/{{_created_dataset}}",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"add-mlrun",
+								"{{_created_dataset}}"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n- Workspace -> Get All Workspaces\n- MLflow -> Create Experiment\n    \n- MLflow -> List Experiments\n    \n- Mlflow -> Search Runs\n    \n\nAdditionally at least one run has to be set for the specified object. This can currently not be done with this documentation, since it's a jupyterhub-feature."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MLflow",
+			"item": [
+				{
+					"name": "List Experiments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"// Iterate over the experiments array\r",
+									"for (var i = 0; i < jsonData.experiments.length; i++) {\r",
+									"    // Check if the name property of the current experiment matches the desired name\r",
+									"    if (jsonData.experiments[i].name != \"Default\") {\r",
+									"        // If it does, set the _experiment_id collection variable to the experiment_id of the current experiment\r",
+									"        pm.collectionVariables.set(\"_experiment\", jsonData.experiments[i].experiment_id);\r",
+									"        break; // Exit the loop\r",
+									"    }\r",
+									"}\r",
+									"\r",
+									"\r",
+									"\r",
+									"// Parse the JSON response\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"// Iterate over the experiments array\r",
+									"for (var i = 0; i < jsonData.experiments.length; i++) {\r",
+									"    // Check if the name property of the current experiment matches the desired name\r",
+									"    if (jsonData.experiments[i].name != \"Default\") {\r",
+									"        // If it does, set the _experiment_artifact collection variable to the artifact_location of the current experiment\r",
+									"        pm.collectionVariables.set(\"_experiment_artifact\", jsonData.experiments[i].artifact_location);\r",
+									"        break; // Exit the loop\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/mlflow/listExperiments",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"mlflow",
+								"listExperiments"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Experiment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"[API-Test] Experiment D\",\r\n    \"workspace_id\": \"{{_workspace_Default Workspace}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/mlflow/createExperiment",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"mlflow",
+								"createExperiment"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Experiment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"  pm.collectionVariables.unset(\"_experiment\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"experiment_id\": \"{{_experiment}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/mlflow/deleteExperiment",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"mlflow",
+								"deleteExperiment"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- MLflow -> Create Experiment"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Jupyter Code",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workspace_id\":\"{{_workspace_Default Workspace}}\",\r\n    \"session_id\":\"\",\r\n    \"experiment_id\":\"{{_experiment}}\",\r\n    \"method\":\"Supervised Learning\",\r\n    \"model\":\"sklearn.svm.SVC\",\r\n    \"datasets\":\"[\\\"{{_created_dataset}}!_!seperator!_!Postman-Dataset!_!seperator!_!0\\\"]\",\r\n    \"title\":\"[API-Test]Test Notebook\",\r\n    \"description\":\"Created via Postman\",\r\n    \"is_public\":true,\r\n    \"withDeploy\":false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/mlflow/createJupyterCode",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"mlflow",
+								"createJupyterCode"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- MLflow -> Create Experiment\n    \n- Dataset -> Create Dataset"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Runs",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"experiment_id\": \"{{_experiment}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/mlflow/searchRuns",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"mlflow",
+								"searchRuns"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n- Mlflow -> Create Experiment\n- Mlflow -> List Experiments"
+					},
+					"response": []
+				},
+				{
+					"name": "Deploy Run",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workspace_id\":\"{{_workspace_Default Workspace}}\",\r\n    \"run_id\":\"{{_experiment_run}}\",\r\n    \"artifact_uri\":\"{{_experiment_artifact}}\",\r\n    \"model_name\":\"Postman-Deploy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/mlflow/deployRun",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"mlflow",
+								"deployRun"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n- Workspace -> Get All Workspaces\n- MLflow -> Create Experiment\n    \n- MLflow -> List Experiments\n    \n- Mlflow -> Search Runs\n    \n\nAdditionally at least one run has to be set for the specified object. This can currently not be done with this documentation, since it's a jupyterhub-feature."
+					},
+					"response": []
+				},
+				{
+					"name": "List all Datasets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/mlflow/{{_workspace_Default Workspace}}/datasets",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"mlflow",
+								"{{_workspace_Default Workspace}}",
+								"datasets"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "List Registered Models",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/mlflow/{{_workspace_Default Workspace}}/listRegisteredModels",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"mlflow",
+								"{{_workspace_Default Workspace}}",
+								"listRegisteredModels"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "Handle Model Transition",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"\",\r\n    \"version\":\"\",\r\n    \"stage\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/mlflow/handleTransition",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"mlflow",
+								"handleTransition"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- ..."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Parameters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/mlflow/getParameters",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"mlflow",
+								"getParameters"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Metrics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/mlflow/getMetrics",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"mlflow",
+								"getMetrics"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OBDA [Old Version]",
+			"item": [
+				{
+					"name": "Mappings",
+					"item": [
+						{
+							"name": "Get All Mappings",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/obda/mappings",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"obda",
+										"mappings"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- OBDA -> Mappings -> Create Mapping (to see at least one element)"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Mapping",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Extract the _id from the response and save it in a collection variable\r",
+											"var responseJson = pm.response.json();\r",
+											"var createdMappingId = responseJson._id.$oid;\r",
+											"\r",
+											"// Save the createdMappingId in a collection variable\r",
+											"pm.collectionVariables.set(\"_created_mapping\", createdMappingId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mappings_file\": \"@prefix ex: <http://example.org/> .\\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\\n@prefix rr: <http://www.w3.org/ns/r2rml#> .\\n\\n<#PersonMapping>\\n    a rr:TriplesMap;\\n    rr:logicalTable [ rr:tableName \\\"Person\\\" ];\\n    rr:subjectMap [ \\n        rr:template \\\"http://example.org/person/{ID}\\\";\\n        rr:class ex:Person\\n    ];\\n    rr:predicateObjectMap [ \\n        rr:predicate ex:hasName;\\n        rr:objectMap [ rr:column \\\"Name\\\" ]\\n    ];\\n    rr:predicateObjectMap [ \\n        rr:predicate ex:hasAge;\\n        rr:objectMap [ rr:column \\\"Age\\\" ]\\n    ].\",\r\n    \"name\": \"[API-Test] Postman-Mapping\",\r\n    \"description\": \"descr\",\r\n    \"mapping_id\": null\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/obda/mappings",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"obda",
+										"mappings"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Mapping [TBD]",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mappings_file\": \"@prefix ex: <http://example.org/> .\\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\\n@prefix rr: <http://www.w3.org/ns/r2rml#> .\\n\\n<#PersonMapping>\\n    a rr:TriplesMap;\\n    rr:logicalTable [ rr:tableName \\\"Person\\\" ];\\n    rr:subjectMap [ \\n        rr:template \\\"http://example.org/person/{ID}\\\";\\n        rr:class ex:Person\\n    ];\\n    rr:predicateObjectMap [ \\n        rr:predicate ex:hasName;\\n        rr:objectMap [ rr:column \\\"Name\\\" ]\\n    ];\\n    rr:predicateObjectMap [ \\n        rr:predicate ex:hasAge;\\n        rr:objectMap [ rr:column \\\"Age\\\" ]\\n    ].\",\r\n\r\n    \"name\": \"[API-Test] Postman-Mapping-Edited\",\r\n    \"description\": \"descr_EDITED\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/obda/mappings",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"obda",
+										"mappings"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n- Workspace -> Get All Workspaces\n- OBDA -> Mappings -> Create Mapping"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Mapping",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mapping_id\":\"{{_created_mapping}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/obda/mappings",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"obda",
+										"mappings"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- OBDA -> Mappings -> Create Mapping"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get OnTop Configurations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/obda/OnTopConfigurations",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"obda",
+								"OnTopConfigurations"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "Check OnTop",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/obda/CheckOnTop",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"obda",
+								"CheckOnTop"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize OnTop",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/obda/initialize_hive",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"obda",
+								"initialize_hive"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "OnTop Mapping Parser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/obda/ontop/mapping_parser",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"obda",
+								"ontop",
+								"mapping_parser"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ontology",
+			"item": [
+				{
+					"name": "Get All Ontologies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"for (var i = 0; i < responseBody.length; i++) {\r",
+									"    if (responseBody[i].title === \"FOAF\") {\r",
+									"        pm.collectionVariables.set(\"_ontology_default\", responseBody[i].id);\r",
+									"        var graphname = responseBody[i].graphname;\r",
+									"        // Split the string using '/' as the delimiter\r",
+									"        var parts = graphname.split('/');\r",
+									"        // The last part is the id that we want to keep\r",
+									"        var lastPart = parts[parts.length - 1];\r",
+									"        // Remove the trailing '>' from the id\r",
+									"        lastPart = lastPart.slice(0, -1);\r",
+									"        pm.collectionVariables.set(\"_ontology_default_graph\", lastPart);\r",
+									"        break; // Stop the loop after finding the ontology\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/ontologies",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"ontologies"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ontology",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/ontologies/{{_ontology_default}}",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"ontologies",
+								"{{_ontology_default}}"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Ontology -> Get All Ontologies"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Ontology",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Stores the \"id\" property in a collection variable \"_ontology_created\"\r",
+									"var responseBody = pm.response.json();\r",
+									"var ontologyId = responseBody.id;\r",
+									"pm.collectionVariables.set(\"_ontology_created\", ontologyId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "Paths needs to be edited.",
+									"type": "file",
+									"src": "/C:/Users/Nico/Documents/GitHub/sedar-api/foaf.rdf"
+								},
+								{
+									"key": "title",
+									"value": "Postman-Ontology",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Uploaded via Postman",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/ontologies",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"ontologies"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Further the file path on the \"body\"-tab of this call needs to be edited."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Ontology",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"[API-Test]My edited Ontology\",\r\n    \"description\": \"Edited with Postman\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/ontologies/{{_ontology_created}}",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"ontologies",
+								"{{_ontology_created}}"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Ontology -> Create Ontology"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Ontology",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.unset(\"_my_ontology\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/ontologies/{{_ontology_created}}",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"ontologies",
+								"{{_ontology_created}}"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Ontology -> Create Ontology"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Ontologies",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"querystring\":\"Person\",\r\n    \"graph_name\": \"?g\",\r\n    \"is_query\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/ontologies/search",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"ontologies",
+								"search"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "Construct",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"querystring\": \"PREFIX foaf: <http://xmlns.com/foaf/0.1/> SELECT ?person WHERE { ?person a foaf:Person. }\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/ontologies/construct",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"ontologies",
+								"construct"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "Iri",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/ontologies/iri/{{_ontology_default_graph}}",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"ontologies",
+								"iri",
+								"{{_ontology_default_graph}}"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Ontology -> Get All Ontologies"
+					},
+					"response": []
+				},
+				{
+					"name": "Download Graph",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workspace_id\":\"{{workspace_id}}\",\r\n    \"querystring\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/ontologies/{{_ontology_default_graph}}/download",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"ontologies",
+								"{{_ontology_default_graph}}",
+								"download"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Ontology -> Get All Ontologies"
+					},
+					"response": []
+				},
+				{
+					"name": "Completion",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"search_term\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/ontologies/completion",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"ontologies",
+								"completion"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Ontology -> Create Ontology"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Get User",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/users/{{E-Mail}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{E-Mail}}"
+									]
+								},
+								"description": "### Info\n\nAPI get request for users.\n\n### Note\n\nThe last parameter can be changed to any given user.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+							},
+							"response": []
+						},
+						{
+							"name": "Update User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Store the E-Mail of the created user\r",
+											"var responseBody = pm.response.json();\r",
+											"var createdUserEmail = responseBody.email;\r",
+											"\r",
+											"pm.collectionVariables.set(\"_created_user\", createdUserEmail);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"{{_created_user}}\",\r\n    \"new_email\":\"{{_created_user}}_EDITED\",\r\n    \"firstname\":\"Mister\",\r\n    \"lastname\":\"Postman\",\r\n    \"username\":\"Postman_User\",\r\n    \"is_admin\":true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/users/{{_created_user}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{_created_user}}"
+									]
+								},
+								"description": "### Info\n\nAPI put request for users. Changes an existing user.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- User -> Create User"
+							},
+							"response": []
+						},
+						{
+							"name": "Create User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Store the E-Mail of the created user\r",
+											"var responseBody = pm.response.json();\r",
+											"var createdUserEmail = responseBody.email;\r",
+											"\r",
+											"pm.collectionVariables.set(\"_created_user\", createdUserEmail);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"Postman_User\",\r\n    \"password\":\"postman\",\r\n    \"firstname\":\"Mister\",\r\n    \"lastname\":\"Postman\",\r\n    \"username\":\"Postman_User\",\r\n    \"is_admin\":true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/users/",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										""
+									]
+								},
+								"description": "### Info\n\nAPI post request for users. Adds a new user.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Check if the response status is 200",
+											"if (pm.response.code === 204) {",
+											"    // Unset the collection variable \"_created_user\"",
+											"    pm.collectionVariables.unset(\"_created_user\");",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":{{_created_user}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/users/{{_created_user}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{_created_user}}"
+									]
+								},
+								"description": "### Info\n\nAPI delete request for users. Deletes an existing user.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- User -> Create User"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Current",
+					"item": [
+						{
+							"name": "Get Current User",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/users/current/",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"current",
+										""
+									]
+								},
+								"description": "### Info\n\nAPI get request for getting the data of the current user. Param email is deprecated. Don't use it anymore, it will be removed in a later version\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Current User",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"new_email\":\"NewUser\",\r\n    \"firstname\":\"Mister\",\r\n    \"lastname\":\"Postman_Update\",\r\n    \"old_password\":\"postman\",\r\n    \"new_password\":\"postman\",\r\n    \"username\":\"Postman\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/users/current/",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"current",
+										""
+									]
+								},
+								"description": "### Info\n\nAPI put request for users. Changes a existing user. Param email is deprecated. Don't use it anymore, it will be removed in a later version.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Wiki",
+			"item": [
+				{
+					"name": "Get Wiki",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/wiki/{{_language}}",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"wiki",
+								"{{_language}}"
+							]
+						},
+						"description": "### Info\n\nAPI get request for wiki.\n\n### Note\n\nThe default value for the language is \"english\". It can be changed by editing the collection variable \"_language\".\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Wiki (Markdown)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"markdown\": \"Edited with Postman \\n\\nExample from https://markdown-it.github.io/\\n# h1 Heading 8-)\\n## h2 Heading\\n### h3 Heading\\n#### h4 Heading\\n##### h5 Heading\\n###### h6 Heading\\n\\n\\n## Horizontal Rules\\n\\n___\\n\\n---\\n\\n***\\n\\n\\n## Typographic replacements\\n\\nEnable typographer option to see result.\\n\\n(c) (C) (r) (R) (tm) (TM) (p) (P) +-\\n\\ntest.. test... test..... test?..... test!....\\n\\n!!!!!! ???? ,,  -- ---\\n\\n\\\"Smartypants, double quotes\\\" and 'single quotes'\\n\\n\\n## Emphasis\\n\\n**This is bold text**\\n\\n__This is bold text__\\n\\n*This is italic text*\\n\\n_This is italic text_\\n\\n~~Strikethrough~~\\n\\n\\n## Blockquotes\\n\\n\\n> Blockquotes can also be nested...\\n>> ...by using additional greater-than signs right next to each other...\\n> > > ...or with spaces between arrows.\\n\\n\\n## Lists\\n\\nUnordered\\n\\n+ Create a list by starting a line with `+`, `-`, or `*`\\n+ Sub-lists are made by indenting 2 spaces:\\n  - Marker character change forces new list start:\\n    * Ac tristique libero volutpat at\\n    + Facilisis in pretium nisl aliquet\\n    - Nulla volutpat aliquam velit\\n+ Very easy!\\n\\nOrdered\\n\\n1. Lorem ipsum dolor sit amet\\n2. Consectetur adipiscing elit\\n3. Integer molestie lorem at massa\\n\\n\\n1. You can use sequential numbers...\\n1. ...or keep all the numbers as `1.`\\n\\nStart numbering with offset:\\n\\n57. foo\\n1. bar\\n\\n\\n## Code\\n\\nInline `code`\\n\\nIndented code\\n\\n    // Some comments\\n    line 1 of code\\n    line 2 of code\\n    line 3 of code\\n\\n\\nBlock code \\\"fences\\\"\\n\\n```\\nSample text here...\\n```\\n\\nSyntax highlighting\\n\\n``` js\\nvar foo = function (bar) {\\n  return bar++;\\n};\\n\\nconsole.log(foo(5));\\n```\\n\\n## Tables\\n\\n| Option | Description |\\n| ------ | ----------- |\\n| data   | path to data files to supply the data that will be passed into templates. |\\n| engine | engine to be used for processing templates. Handlebars is the default. |\\n| ext    | extension to be used for dest files. |\\n\\nRight aligned columns\\n\\n| Option | Description |\\n| ------:| -----------:|\\n| data   | path to data files to supply the data that will be passed into templates. |\\n| engine | engine to be used for processing templates. Handlebars is the default. |\\n| ext    | extension to be used for dest files. |\\n\\n\\n## Links\\n\\n[link text](http://dev.nodeca.com)\\n\\n[link with title](http://nodeca.github.io/pica/demo/ \\\"title text!\\\")\\n\\nAutoconverted link https://github.com/nodeca/pica (enable linkify to see)\\n\\n\\n## Images\\n\\n![Minion](https://octodex.github.com/images/minion.png)\\n![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg \\\"The Stormtroopocat\\\")\\n\\nLike links, Images also have a footnote style syntax\\n\\n![Alt text][id]\\n\\nWith a reference later in the document defining the URL location:\\n\\n[id]: https://octodex.github.com/images/dojocat.jpg  \\\"The Dojocat\\\"\\n\\n\\n## Plugins\\n\\nThe killer feature of `markdown-it` is very effective support of\\n[syntax plugins](https://www.npmjs.org/browse/keyword/markdown-it-plugin).\\n\\n\\n### [Emojies](https://github.com/markdown-it/markdown-it-emoji)\\n\\n> Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:\\n>\\n> Shortcuts (emoticons): :-) :-( 8-) ;)\\n\\nsee [how to change output](https://github.com/markdown-it/markdown-it-emoji#change-output) with twemoji.\\n\\n\\n### [Subscript](https://github.com/markdown-it/markdown-it-sub) / [Superscript](https://github.com/markdown-it/markdown-it-sup)\\n\\n- 19^th^\\n- H~2~O\\n\\n\\n### [\\\\<ins>](https://github.com/markdown-it/markdown-it-ins)\\n\\n++Inserted text++\\n\\n\\n### [\\\\<mark>](https://github.com/markdown-it/markdown-it-mark)\\n\\n==Marked text==\\n\\n\\n### [Footnotes](https://github.com/markdown-it/markdown-it-footnote)\\n\\nFootnote 1 link[^first].\\n\\nFootnote 2 link[^second].\\n\\nInline footnote^[Text of inline footnote] definition.\\n\\nDuplicated footnote reference[^second].\\n\\n[^first]: Footnote **can have markup**\\n\\n    and multiple paragraphs.\\n\\n[^second]: Footnote text.\\n\\n\\n### [Definition lists](https://github.com/markdown-it/markdown-it-deflist)\\n\\nTerm 1\\n\\n:   Definition 1\\nwith lazy continuation.\\n\\nTerm 2 with *inline markup*\\n\\n:   Definition 2\\n\\n        { some code, part of Definition 2 }\\n\\n    Third paragraph of definition 2.\\n\\n_Compact style:_\\n\\nTerm 1\\n  ~ Definition 1\\n\\nTerm 2\\n  ~ Definition 2a\\n  ~ Definition 2b\\n\\n\\n### [Abbreviations](https://github.com/markdown-it/markdown-it-abbr)\\n\\nThis is HTML abbreviation example.\\n\\nIt converts \\\"HTML\\\", but keep intact partial entries like \\\"xxxHTMLyyy\\\" and so on.\\n\\n*[HTML]: Hyper Text Markup Language\\n\\n### [Custom containers](https://github.com/markdown-it/markdown-it-container)\\n\\n::: warning\\n*here be dragons*\\n:::\\n\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/wiki/{{_language}}",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"wiki",
+								"{{_language}}"
+							]
+						},
+						"description": "### Info\n\nAPI put request for updating the wiki markdown.\n\n### Note\n\nThe default value for the language is \"english\". It can be changed by editing the collection variable \"_language\".\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dataset",
+			"item": [
+				{
+					"name": "Advanced Dataset Operations",
+					"item": [
+						{
+							"name": "Get Dataset Logs",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"is_download\":false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/logs",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"logs"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Continuation Timer",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"timer\":[\"1000\", \"1500\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/timer",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"timer"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Datasource",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "datasource_definition\n",
+											"value": "{\n  \"name\": \"Postman-Dataset\",\n  \"id_column\": \"Identifier\",\n  \"read_type\": \"SOURCE_FILE\",\n  \"read_format\": \"csv\",\n  \"read_options\": {\n    \"delimiter\": \";\",\n    \"header\": \"true\"\n  },\n  \"source_files\": [\"username\"],\n  \"write_type\": \"DELTA\"\n}",
+											"type": "text"
+										},
+										{
+											"key": "files",
+											"type": "file",
+											"src": "/C:/Users/Nico/Documents/GitHub/sedar-api/username.csv"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/update-datasource",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"update-datasource"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- Further the file path needs to be edited"
+							},
+							"response": []
+						},
+						{
+							"name": "Toggle Public Status",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/status",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"status"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Grant User Access To Dataset",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"{{_created_user}}\",\r\n    \"add\":true,\r\n    \"can_read\":true,\r\n    \"can_write\":true,\r\n    \"can_delete\":true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/users",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"users"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- User -> Create User"
+							},
+							"response": []
+						},
+						{
+							"name": "Edit User Access To Dataset",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"add\": true,\r\n    \"email\":\"{{_created_user}}\",\r\n    \"can_read\":true,\r\n    \"can_write\":false,\r\n    \"can_delete\":false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/users",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"users"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- User -> Create User"
+							},
+							"response": []
+						},
+						{
+							"name": "Revoke User Access From Dataset",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"{{_created_user}}\",\r\n    \"add\":false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/users",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"users"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- User -> Create User"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Index Data to Dataset",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/index",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"index"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Index Data from Dataset",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/index",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"index"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n- Workspace -> Get All Workspaces\n- Dataset -> Create Dataset\n- Dataset -> Advanced Dataset Operations -> Add Index Data to Dataset (to see a difference on the dataset)"
+							},
+							"response": []
+						},
+						{
+							"name": "Toggle Dataset Favorite Status",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/favorite",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"favorite"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Favorite Datasets",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"is_download\":false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/favorites",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"favorites"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Advanced Dataset Operations -> Toggle Dataset Favorite (to see at least one entry)"
+							},
+							"response": []
+						},
+						{
+							"name": "Compare Dataset Deltas",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"session_id\":null,\r\n    \"version\":1,\r\n    \"version_to_compare\":0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/deltas",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"deltas"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- Dataset -> Advanced Dataset Operations -> Update Datasource"
+							},
+							"response": []
+						},
+						{
+							"name": "Query Sourcedata",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"session_id\": \"\",\r\n    \"query\":\"SELECT * FROM {{_created_dataset}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/query",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"query"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Dataset Preview",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"session_id\":\"\",\r\n    \"flattened\":false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/preview",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"preview"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Notebooks",
+					"item": [
+						{
+							"name": "Get All Notebooks",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/notebooks",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"notebooks"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Notebook",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/notebooks/{{_dataset_created_notebook}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"notebooks",
+										"{{_dataset_created_notebook}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- Dataset -> Notebook -> Create Notebook"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Notebook",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Store the \"id\" of the response in a collection variable\r",
+											"var jsonData = pm.response.json();\r",
+											"var datasetNotebookId = jsonData.id;\r",
+											"\r",
+											"pm.collectionVariables.set(\"_dataset_created_notebook\", datasetNotebookId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Postman-Notebook\",\r\n    \"description\": \"descr\",\r\n    \"type\": \"JUPYTER\",\r\n    \"is_public\": true,\r\n    \"version\": \"LATEST\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/notebooks",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"notebooks"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Notebook",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const now = new Date().toISOString();"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"title\": \"Postman-Notebook_EDITED\",\r\n  \"description\": \"descr_EDITED\",\r\n  \"is_public\": true,\r\n  \"version\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/notebooks/{{_dataset_created_notebook}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"notebooks",
+										"{{_dataset_created_notebook}}"
+									]
+								},
+								"description": "### Info\n\nAPI put request to edit an existing dataset.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- Dataset -> Notebooks -> Create Notebook"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Notebook",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Check if the response status code is 200\r",
+											"if (pm.response.code === 200) {\r",
+											"    // Delete the collection variable \"_dataset_created_notebook\"\r",
+											"    pm.collectionVariables.unset(\"_dataset_created_notebook\");\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/notebooks/{{_dataset_created_notebook}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"notebooks",
+										"{{_dataset_created_notebook}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- Dataset -> Notebooks -> Create Notebook"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Notebook Code",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"notebook_type\":\"JUPYTER\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/notebook-code/{{_created_dataset}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"notebook-code",
+										"{{_created_dataset}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Lineage",
+					"item": [
+						{
+							"name": "Get Lineage of Dataset",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/lineage",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"lineage"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Recommandations",
+					"item": [
+						{
+							"name": "Get All Linked Datasets",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/recommendations",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"recommendations"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- Dataset -> Recommandations -> Create Dataset Link (to see at least one entry)"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Dataset Link",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id_of_linked_dataset\":\"{{_created_dataset_2}}\",\r\n    \"description\":\"Postman-Test-Link\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/recommendations",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"recommendations"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- 2x Dataset -> Create Dataset (You need to execute the call twice)"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Dataset Link",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id_of_linked_dataset\":\"{{_created_dataset_2}}\",\r\n    \"description\":\"Postman-Test-Link-Edited\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/recommendations",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"recommendations"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- 2x Dataset -> Create Dataset (You need to execute the call twice)\n    \n- Dataset -> Recommandations -> Create Dataset Link"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Dataset Link",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id_of_linked_dataset\":\"{{_created_dataset_2}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/recommendations",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"recommendations"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- 2x Dataset -> Create Dataset (You need to execute the call twice)\n    \n- Dataset -> Recommandations -> Create Dataset Link"
+							},
+							"response": []
+						}
+					],
+					"description": "Interface to manage connections between datasets"
+				},
+				{
+					"name": "Attributes",
+					"item": [
+						{
+							"name": "Get Schema Attribute",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/attributes/{{_entity_attribute}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"attributes",
+										"{{_entity_attribute}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- Dataset -> Run Ingestion\n    \n- Dataset -> Get Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Schema Attributes",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"descr_EDITED2\",\r\n    \"datatype\": \"StringType\",\r\n    \"is_Pk\": false,\r\n    \"is_fk\": true,\r\n    \"contains_PII\": true\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/attributes/{{_entity_attribute}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"attributes",
+										"{{_entity_attribute}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n- Workspace -> Get All Workspaces\n- Dataset -> Create Dataset\n- Dataset -> Run Ingestion\n- Dataset -> Get Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Foreign Key for Attribute",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Store the \"id\" value from the response in the collection variable \"_annotation_id\"\r",
+											"var responseBody = pm.response.json();\r",
+											"var annotationId = responseBody.id;\r",
+											"\r",
+											"pm.collectionVariables.set(\"_annotation_id\", annotationId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"annotation_id\": \"\",\r\n    \"annotation\": \"<http://xmlns.com/foaf/0.1/Person>\",\r\n    \"ontology_id\": \"{{_ontology_default}}\",\r\n    \"id_of_fk_dataset\": \"\",\r\n    \"id_of_fk_attribute\": \"\",\r\n    \"set_pk\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/attributes/{{_entity_attribute}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"attributes",
+										"{{_entity_attribute}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n- Workspace -> Get All Workspaces\n- Ontology -> Get All Ontologies\n- Dataset -> Create Dataset\n- Dataset -> Run Ingestion\n- Dataset -> Get Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Foreign Key for Attribute",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"annotation_id\": \"{{_annotation_id}}\",\r\n    \"annotation\": null,\r\n    \"ontology_id\": null,\r\n    \"id_of_fk_dataset\": \"\",\r\n    \"id_of_fk_attribute\": \"\",\r\n    \"set_pk\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/attributes/{{_entity_attribute}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"attributes",
+										"{{_entity_attribute}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- Dataset -> Run Ingestion\n    \n- Dataset -> Get Dataset\n    \n- Dataset -> Attributes -> Create Foreign Key for Attribute"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Entities",
+					"item": [
+						{
+							"name": "Get Schema Entity",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/entities/{{_entity}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"entities",
+										"{{_entity}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- Dataset -> Run Ingestion\n    \n- Dataset -> Get Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Schema Entity",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"descr_EDITED\",\r\n    \"name\": \"DisplayName_EDITED\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/entities/{{_entity}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"entities",
+										"{{_entity}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- Dataset -> Run Ingestion\n    \n- Dataset -> Get Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Entity Annotation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Retrieve the \"id\" value from the response\r",
+											"var responseBody = pm.response.json();\r",
+											"var entityId = responseBody.id;\r",
+											"\r",
+											"// Save the \"id\" value in the collection variable \"_entity_annotation\"\r",
+											"pm.collectionVariables.set(\"_entity_annotation\", entityId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"description\": \"descr\",\r\n  \"key\": null,\r\n  \"annotation_id\": null,\r\n  \"annotation\": \"<http://xmlns.com/foaf/0.1/Person>\",\r\n  \"ontology_id\": \"{{_ontology_default}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/entities/{{_entity}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"entities",
+										"{{_entity}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n- Workspace -> Get All Workspaces\n- Ontology -> Get All Ontologies\n- Dataset -> Create Dataset\n- Dataset -> Run Ingestion\n- Dataset -> Get Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Entitty Annotation",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"description\": null,\r\n  \"key\": null,\r\n  \"annotation_id\": \"{{_entity_annotation}}\",\r\n  \"annotation\": null,\r\n  \"ontology_id\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/entities/{{_entity}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"entities",
+										"{{_entity}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Ontology -> Get All Ontologies\n    \n- Dataset -> Create Dataset\n    \n- Dataset -> Run Ingestion\n    \n- Dataset -> Get Dataset\n    \n- Dataset -> Entity -> Create Annotation Entity"
+							},
+							"response": []
+						}
+					],
+					"description": "Only works for semistructured and structured datasets"
+				},
+				{
+					"name": "Files",
+					"item": [
+						{
+							"name": "Download File",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"is_download\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset_unstructured}}/files/{{_unstructured_dataset_file}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset_unstructured}}",
+										"files",
+										"{{_unstructured_dataset_file}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n- Workspace -> Get All Workspaces\n- Ontology -> Get All Ontologies\n- Dataset -> Create Unstructured Dataset\n- Dataset -> Get Dataset (beforehand the URI has to be changed from \".../datasets/{{_created_dataset}}\" to \".../datasets/{{_created_unstructured_dataset}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Update File",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"descr_EDITED\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset_unstructured}}/files/{{_unstructured_dataset_file}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset_unstructured}}",
+										"files",
+										"{{_unstructured_dataset_file}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Ontology -> Get All Ontologies\n    \n- Dataset -> Create Unstructured Dataset\n    \n- Dataset -> Get Dataset (beforehand the URI has to be changed from \".../datasets/{{_created_dataset}}\" to \".../datasets/{{_created_unstructured_dataset}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Create File Annotation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Retrieve the \"id\" value from the response\r",
+											"var responseBody = pm.response.json();\r",
+											"var fileId = responseBody.id;\r",
+											"\r",
+											"// Save the \"id\" value in the collection variable \"_entity_annotation\"\r",
+											"pm.collectionVariables.set(\"_file_annotation\", fileId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"description\": \"descr\",\r\n  \"key\": null,\r\n  \"annotation_id\": null,\r\n  \"annotation\": \"<http://xmlns.com/foaf/0.1/Person>\",\r\n  \"ontology_id\": \"{{_ontology_default}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset_unstructured}}/files/{{_unstructured_dataset_file}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset_unstructured}}",
+										"files",
+										"{{_unstructured_dataset_file}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Ontology -> Get All Ontologies\n    \n- Dataset -> Create Unstructured Dataset\n    \n- Dataset -> Get Dataset (beforehand the URI has to be changed from \".../datasets/{{_created_dataset}}\" to \".../datasets/{{_created_unstructured_dataset}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Delete File Annotation",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"NewTag\",\r\n    \"annotation\":\"<http://xmlns.com/foaf/0.1/Person>\",\r\n    \"ontology_id\":\"{{_ontology_default}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset_unstructured}}/files/{{_unstructured_dataset_file}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset_unstructured}}",
+										"files",
+										"{{_unstructured_dataset_file}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Ontology -> Get All Ontologies\n    \n- Dataset -> Create Unstructured Dataset\n    \n- Dataset -> Get Dataset (beforehand the URI has to be changed from \".../datasets/{{_created_dataset}}\" to \".../datasets/{{_created_unstructured_dataset}}\""
+							},
+							"response": []
+						}
+					],
+					"description": "Only works for unstructured Datasets."
+				},
+				{
+					"name": "Tags",
+					"item": [
+						{
+							"name": "Get All Tags",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/tags",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"tags"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Tag",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/tags/{{_dataset_created_tag}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"tags",
+										"{{_dataset_created_tag}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- Dataset -> Tags -> Create Tag"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Tag",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Store the \"id\" of the response in a collection variable\r",
+											"var jsonData = pm.response.json();\r",
+											"var datasetTagId = jsonData.id;\r",
+											"\r",
+											"pm.collectionVariables.set(\"_dataset_created_tag\", datasetTagId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"Postman_Tag\",\r\n    \"annotation\":\"<http://xmlns.com/foaf/0.1/Person>\",\r\n    \"ontology_id\":\"{{_ontology_default}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/tags",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"tags"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Ontology -> Get All Ontologies\n    \n- Dataset -> Create Dataset"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Tag",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Check if the response status code is 200\r",
+											"if (pm.response.code === 200) {\r",
+											"    // Delete the collection variable \"_dataset_created_tag\"\r",
+											"    pm.collectionVariables.unset(\"_dataset_created_tag\");\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/tags/{{_dataset_created_tag}}",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"tags",
+										"{{_dataset_created_tag}}"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- Dataset -> Tags -> Create Tag"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cleaning",
+					"item": [
+						{
+							"name": "ConstraintSuggestion",
+							"item": [
+								{
+									"name": "Get Constraint Suggestions",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Store the first entry of constraint_suggestions in a collection variable\r",
+													"var responseJson = pm.response.json();\r",
+													"var cleaningConstraint = responseJson.constraint_suggestions[0];\r",
+													"pm.collectionVariables.set(\"_cleaning_constraint\", cleaningConstraint);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"version\":\"0\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/cleaning/suggest",
+											"host": [
+												"{{SEDAR-IP}}"
+											],
+											"port": "{{SEDAR-Port}}",
+											"path": [
+												"api",
+												"v1",
+												"workspaces",
+												"{{_workspace_Default Workspace}}",
+												"datasets",
+												"{{_created_dataset}}",
+												"cleaning",
+												"suggest"
+											]
+										},
+										"description": "### Info\n\nAPI get request a specific dataset.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- ..."
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "ConstraintValidation",
+							"item": [
+								{
+									"name": "Get Validated Constraints",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"version\":\"0\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/cleaning/verify",
+											"host": [
+												"{{SEDAR-IP}}"
+											],
+											"port": "{{SEDAR-Port}}",
+											"path": [
+												"api",
+												"v1",
+												"workspaces",
+												"{{_workspace_Default Workspace}}",
+												"datasets",
+												"{{_created_dataset}}",
+												"cleaning",
+												"verify"
+											]
+										},
+										"description": "### Info\n\nAPI get request a specific dataset.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- ..."
+									},
+									"response": []
+								},
+								{
+									"name": "Create Validated Constraint",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// This call automatically tries to fetch for a schema-id,\r",
+													"// an entity-id, a file-id and an attribute-id\r",
+													"var responseBody = pm.response.json();\r",
+													"\r",
+													"// Check if [\"schema\"][\"id\"] exists in the response body\r",
+													"if (responseBody.hasOwnProperty(\"schema\") && responseBody[\"schema\"].hasOwnProperty(\"id\")) {\r",
+													"    // Store the value of [\"schema\"][\"id\"] in the collection variable \"_schema\"\r",
+													"    pm.collectionVariables.set(\"_schema\", responseBody[\"schema\"][\"id\"]);\r",
+													"}\r",
+													"\r",
+													"// Check if [\"schema\"][\"entities\"][0][\"id\"] exists in the response body\r",
+													"if (responseBody.hasOwnProperty(\"schema\") && \r",
+													"    responseBody[\"schema\"].hasOwnProperty(\"entities\") &&\r",
+													"    responseBody[\"schema\"][\"entities\"].length > 0 && \r",
+													"    responseBody[\"schema\"][\"entities\"][0].hasOwnProperty(\"id\")) {\r",
+													"    // Store the value of [\"schema\"][\"entities\"][0][\"id\"] in the variable \"_entity\"\r",
+													"    pm.collectionVariables.set(\"_entity\", responseBody[\"schema\"][\"entities\"][0][\"id\"]);\r",
+													"\r",
+													"    // Check if [\"schema\"][\"entities\"][0][\"attributes\"] contains minium one attribute\r",
+													"    if(responseBody[\"schema\"][\"entities\"][0][\"attributes\"].length > 0) {\r",
+													"        pm.collectionVariables.set(\"_entity_attribute\", responseBody[\"schema\"][\"entities\"][0][\"attributes\"][0][\"id\"]);\r",
+													"    }\r",
+													"}\r",
+													"\r",
+													"// Check if [\"schema\"][\"files\"] exists in the response body\r",
+													"if (responseBody.hasOwnProperty(\"schema\") && \r",
+													"    responseBody[\"schema\"].hasOwnProperty(\"files\") &&\r",
+													"    responseBody[\"schema\"][\"files\"].length > 0 && \r",
+													"    responseBody[\"schema\"][\"files\"][0].hasOwnProperty(\"id\")) {\r",
+													"    // Store the value of [\"schema\"][\"entities\"][0][\"id\"] in the variable \"_file\"\r",
+													"    pm.collectionVariables.set(\"_unstructured_dataset_file\", responseBody[\"schema\"][\"files\"][0][\"id\"]);\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"version\":\"0\",\r\n    \"constraints\": [\r\n        {\r\n            \"type\":\"isComplete\",\r\n            \"params\":\r\n                {\r\n                    \"column\":\"Lastname\"\r\n                }\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/cleaning/verify",
+											"host": [
+												"{{SEDAR-IP}}"
+											],
+											"port": "{{SEDAR-Port}}",
+											"path": [
+												"api",
+												"v1",
+												"workspaces",
+												"{{_workspace_Default Workspace}}",
+												"datasets",
+												"{{_created_dataset}}",
+												"cleaning",
+												"verify"
+											]
+										},
+										"description": "### Info\n\nAPI get request a specific dataset.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- ..."
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Validated Constraints",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"version\":\"2\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/cleaning/verify",
+											"host": [
+												"{{SEDAR-IP}}"
+											],
+											"port": "{{SEDAR-Port}}",
+											"path": [
+												"api",
+												"v1",
+												"workspaces",
+												"{{_workspace_Default Workspace}}",
+												"datasets",
+												"{{_created_dataset}}",
+												"cleaning",
+												"verify"
+											]
+										},
+										"description": "### Info\n\nAPI get request a specific dataset.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- ..."
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Filters",
+							"item": [
+								{
+									"name": "Generate Filter Suggestions",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"version\":\"0\",\r\n    \"constraints\": [\r\n        {\r\n            \"type\":\"isComplete\",\r\n            \"params\":\r\n                {\r\n                    \"column\":\"Lastname\"\r\n                }\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/cleaning/filters",
+											"host": [
+												"{{SEDAR-IP}}"
+											],
+											"port": "{{SEDAR-Port}}",
+											"path": [
+												"api",
+												"v1",
+												"workspaces",
+												"{{_workspace_Default Workspace}}",
+												"datasets",
+												"{{_created_dataset}}",
+												"cleaning",
+												"filters"
+											]
+										},
+										"description": "### Info\n\nAPI get request a specific dataset.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- ..."
+									},
+									"response": []
+								},
+								{
+									"name": "Execute Filters",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"version\":0,\r\n    \"constraints\": [\r\n        {\r\n            \"type\":\"isComplete\",\r\n            \"params\":\r\n                {\r\n                    \"column\":\"Lastname\"\r\n                }\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/cleaning/filters",
+											"host": [
+												"{{SEDAR-IP}}"
+											],
+											"port": "{{SEDAR-Port}}",
+											"path": [
+												"api",
+												"v1",
+												"workspaces",
+												"{{_workspace_Default Workspace}}",
+												"datasets",
+												"{{_created_dataset}}",
+												"cleaning",
+												"filters"
+											]
+										},
+										"description": "### Info\n\nAPI get request a specific dataset.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- ..."
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get All Datasets",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"get_unpublished\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"datasets"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// This call automatically tries to fetch for a schema-id,\r",
+									"// an entity-id, a file-id and an attribute-id\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"// Check if [\"schema\"][\"id\"] exists in the response body\r",
+									"if (responseBody.hasOwnProperty(\"schema\") && responseBody[\"schema\"].hasOwnProperty(\"id\")) {\r",
+									"    // Store the value of [\"schema\"][\"id\"] in the collection variable \"_schema\"\r",
+									"    pm.collectionVariables.set(\"_schema\", responseBody[\"schema\"][\"id\"]);\r",
+									"}\r",
+									"\r",
+									"// Check if [\"schema\"][\"entities\"][0][\"id\"] exists in the response body\r",
+									"if (responseBody.hasOwnProperty(\"schema\") && \r",
+									"    responseBody[\"schema\"].hasOwnProperty(\"entities\") &&\r",
+									"    responseBody[\"schema\"][\"entities\"].length > 0 && \r",
+									"    responseBody[\"schema\"][\"entities\"][0].hasOwnProperty(\"id\")) {\r",
+									"    // Store the value of [\"schema\"][\"entities\"][0][\"id\"] in the variable \"_entity\"\r",
+									"    pm.collectionVariables.set(\"_entity\", responseBody[\"schema\"][\"entities\"][0][\"id\"]);\r",
+									"\r",
+									"    // Check if [\"schema\"][\"entities\"][0][\"attributes\"] contains minium one attribute\r",
+									"    if(responseBody[\"schema\"][\"entities\"][0][\"attributes\"].length > 0) {\r",
+									"        pm.collectionVariables.set(\"_entity_attribute\", responseBody[\"schema\"][\"entities\"][0][\"attributes\"][0][\"id\"]);\r",
+									"    }\r",
+									"}\r",
+									"\r",
+									"// Check if [\"schema\"][\"files\"] exists in the response body\r",
+									"if (responseBody.hasOwnProperty(\"schema\") && \r",
+									"    responseBody[\"schema\"].hasOwnProperty(\"files\") &&\r",
+									"    responseBody[\"schema\"][\"files\"].length > 0 && \r",
+									"    responseBody[\"schema\"][\"files\"][0].hasOwnProperty(\"id\")) {\r",
+									"    // Store the value of [\"schema\"][\"entities\"][0][\"id\"] in the variable \"_file\"\r",
+									"    pm.collectionVariables.set(\"_unstructured_dataset_file\", responseBody[\"schema\"][\"files\"][0][\"id\"]);\r",
+									"}\r",
+									"\r",
+									"if (responseBody.hasOwnProperty(\"datasource\")) {\r",
+									"    pm.collectionVariables.set(\"_dataset_datasource\", responseBody[\"datasource\"][\"id\"]);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"datasets",
+								"{{_created_dataset}}"
+							]
+						},
+						"description": "### Info\n\nAPI get request a specific dataset.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Save the first two created datasets in collection variables. \r",
+									"// If more get created, the idwill no longer be saved.\r",
+									"var responseBody = pm.response.json();\r",
+									"var datasetId = responseBody.id;\r",
+									"\r",
+									"if (!pm.collectionVariables.has(\"_created_dataset\")) {\r",
+									"    // Save the ID to the collection variable \"_created_dataset\"\r",
+									"    pm.collectionVariables.set(\"_created_dataset\", datasetId);\r",
+									"} else if (!pm.collectionVariables.has(\"_created_dataset_2\")) {\r",
+									"    // Save the ID to the collection variable \"_created_dataset_2\"\r",
+									"    pm.collectionVariables.set(\"_created_dataset_2\", datasetId);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Postman-Dataset",
+									"type": "text"
+								},
+								{
+									"key": "datasource_definition",
+									"value": "{\n        \"name\":\"Postman-Dataset\",\n        \"read_format\":\"csv\",\n        \"read_options\":\n            {\n                \"delimiter\":\";\",\n                \"header\":\"true\",\n                \"inferSchema\":\"true\"\n            },\n        \"write_type\":\"DEFAULT\",\n        \"read_type\":\"SOURCE_FILE\",\n        \"id_column\":\"Identifier\",\n        \"source_files\":[\"username\"]\n    }",
+									"type": "text"
+								},
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/C:/Users/Nico/Documents/GitHub/sedar-api/username.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/create",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"datasets",
+								"create"
+							]
+						},
+						"description": "### Info\n\nAPI post request to create a new dataset.\n\n### Note\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Further please edit the file path in the \"Body\"-Tab of this call."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Unstructured Dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Save the first two created datasets in collection variables. \r",
+									"// If more get created, the idwill no longer be saved.\r",
+									"var responseBody = pm.response.json();\r",
+									"var datasetId = responseBody.id;\r",
+									"\r",
+									"if (!pm.collectionVariables.has(\"_created_dataset_unstructured\")) {\r",
+									"    // Save the ID to the collection variable \"_created_dataset\"\r",
+									"    pm.collectionVariables.set(\"_created_dataset_unstructured\", datasetId);\r",
+									"} else if (!pm.collectionVariables.has(\"_created_dataset_unstructured_2\")) {\r",
+									"    // Save the ID to the collection variable \"_created_dataset_2\"\r",
+									"    pm.collectionVariables.set(\"_created_dataset_unstructured_2\", datasetId);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Postman-UnstructuredDataset",
+									"type": "text"
+								},
+								{
+									"key": "datasource_definition",
+									"value": "{\n\t\"name\": \"Postman-Ingestion_Unstructured\",\n\t\"read_type\": \"DATA_FILE\",\n\t\"source_files\": [\n\t\t\"abstract-art-i77194\"\n\t]\n}",
+									"type": "text"
+								},
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/C:/Users/Nico/Documents/GitHub/sedar-api/abstract-art-i77194.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/create",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"datasets",
+								"create"
+							]
+						},
+						"description": "### Info\n\nAPI post request to create a new (unstructured) dataset.\n\n### Note\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Further please edit the file path in the \"Body\"-Tab of this call."
+					},
+					"response": []
+				},
+				{
+					"name": "Run Ingestion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/run-ingestion",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"datasets",
+								"{{_created_dataset}}",
+								"run-ingestion"
+							]
+						},
+						"description": "### Info\n\nAPI post request to create a new dataset.\n\n### Note\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+					},
+					"response": []
+				},
+				{
+					"name": "Start Profiling",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"version\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/profiling",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"datasets",
+								"{{_created_dataset}}",
+								"profiling"
+							]
+						},
+						"description": "### Info\n\nAPI post request to create a new dataset.\n\n### Note\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset\n    \n- Dataset -> Run Ingestion"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Dataset",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const now = new Date().toISOString();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Postman-Dataset_EDITED\",\r\n    \"description\": \"Edited with Postman\",\r\n    \"author\":\"\",\r\n    \"longitude\":\"\", \r\n    \"latitude\":\"\", \r\n    \"license\":\"\", \r\n    \"range_start\":\"2023-08-29T12:34:56.789Z\",\r\n    \"range_end\":\"2023-08-29T12:34:56.789Z\",\r\n    \"language\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"datasets",
+								"{{_created_dataset}}"
+							]
+						},
+						"description": "### Info\n\nAPI put request to edit an existing dataset.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+					},
+					"response": []
+				},
+				{
+					"name": "Publish Dataset",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"datasets",
+								"{{_created_dataset}}"
+							]
+						},
+						"description": "### Info\n\nAPI patch request to publish an existing dataset.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Dataset",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"datasets",
+								"{{_created_dataset}}"
+							]
+						},
+						"description": "### Info\n\nAPI delete request to delete an exisitng dataset.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Workspace",
+			"item": [
+				{
+					"name": "Advances Workspace Operations",
+					"item": [
+						{
+							"name": "Create Workflow [TBD]",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/datasets/{{_created_dataset}}/cleaning/verify",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"datasets",
+										"{{_created_dataset}}",
+										"cleaning",
+										"verify"
+									]
+								},
+								"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- ..."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Workspace Users",
+					"item": [
+						{
+							"name": "Get Workspace Users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/users",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"users"
+									]
+								},
+								"description": "### Info\n\nAPI get request for getting all users of the current workspace\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Workspace User Permissions",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"add\":true,\r\n    \"email\":\"{{_created_user}}\",\r\n    \"can_read\":true,\r\n    \"can_write\":true,\r\n    \"can_delete\":true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/users",
+									"host": [
+										"{{SEDAR-IP}}"
+									],
+									"port": "{{SEDAR-Port}}",
+									"path": [
+										"api",
+										"v1",
+										"workspaces",
+										"{{_workspace_Default Workspace}}",
+										"users"
+									]
+								},
+								"description": "### Info\n\nAPI put request to add users to manage the user access of a given workspace\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- User -> Create User"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get All Workspaces",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"// Loop over the elements in the jsonData array",
+									"for (var i = 0; i < jsonData.length; i++) {",
+									"    // Save all fetched Workspaces with the format \"_workspace_<Workspace-Title>\"",
+									"    pm.collectionVariables.set(\"_workspace_\" + jsonData[i].title, jsonData[i].id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								""
+							]
+						},
+						"description": "### Info\n\nAPI get request for workspaces.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Workspace",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}"
+							]
+						},
+						"description": "### Info\n\nAPI get request a specific workspace.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Workspace",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Save the created Workspaces with the format \"_workspace_<Workspace-Title>\"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"_workspace_created\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"Postman-Workspace\",\r\n    \"description\":\"POSTMAN-Test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								""
+							]
+						},
+						"description": "### Info\n\nAPI post request for workspaces. Creates a new workspace for a given user.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Workspace",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"Postman-Workspace_EDITED\",\r\n    \"description\":\"POSTMAN-Test-Edit\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_created}}",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_created}}"
+							]
+						},
+						"description": "### Info\n\nAPI put request to edit a workspace.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Create Workspace"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Workspace",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_created}}",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_created}}"
+							]
+						},
+						"description": "### Info\n\nAPI put request to delete a workspace.\n\n## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Create Workspace"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Dataset",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"query\": \"Postman\",\r\n    \"source_search\": false,\r\n    \"semantic_search\": false,\r\n    \"author\": \"\",\r\n    \"schema\": \"\",\r\n    \"zone\": \"\",\r\n    \"tags\": [],\r\n    \"sort_target\": \"\",\r\n    \"sort_direction\": \"\",\r\n    \"status\": \"\",\r\n    \"limit\": \"10\",\r\n    \"rows_min\": \"\",\r\n    \"rows_max\": \"\",\r\n    \"with_auto_wildcard\": true,\r\n    \"search_schema_element\": false,\r\n    \"filter_schema\": false,\r\n    \"is_pk\": false,\r\n    \"is_fk\": false,\r\n    \"size_min\": \"\",\r\n    \"size_max\": \"\",\r\n    \"notebook_search\": false,\r\n    \"notebook_type\": \"\",\r\n    \"hasRun\": false,\r\n    \"hasNotebook\": false,\r\n    \"hasRegModel\": false,\r\n    \"selectedExperiment\": \"\\\"\\\"\",\r\n    \"selectedMetrics\": \"[]\",\r\n    \"selectedParameters\": \"[]\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/search",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"search"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n- Workspace -> Get All Workspaces\n- Dataset -> Create Dataset (to see at least one entry)\n- Dataset -> Run Ingestion (to see at least one entry)"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Notebook",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"query\": \"Postman\",\r\n    \"source_search\": false,\r\n    \"semantic_search\": false,\r\n    \"author\": \"\",\r\n    \"schema\": \"\",\r\n    \"zone\": \"\",\r\n    \"tags\": [],\r\n    \"sort_target\": \"\",\r\n    \"sort_direction\": \"\",\r\n    \"status\": \"\",\r\n    \"limit\": \"10\",\r\n    \"rows_min\": \"\",\r\n    \"rows_max\": \"\",\r\n    \"with_auto_wildcard\": true,\r\n    \"search_schema_element\": false,\r\n    \"filter_schema\": false,\r\n    \"is_pk\": false,\r\n    \"is_fk\": false,\r\n    \"size_min\": \"\",\r\n    \"size_max\": \"\",\r\n    \"notebook_search\": false,\r\n    \"notebook_type\": \"\",\r\n    \"hasRun\": false,\r\n    \"hasNotebook\": false,\r\n    \"hasRegModel\": false,\r\n    \"selectedExperiment\": \"\\\"\\\"\",\r\n    \"selectedMetrics\": \"[]\",\r\n    \"selectedParameters\": \"[]\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SEDAR-IP}}:{{SEDAR-Port}}/api/v1/workspaces/{{_workspace_Default Workspace}}/search",
+							"host": [
+								"{{SEDAR-IP}}"
+							],
+							"port": "{{SEDAR-Port}}",
+							"path": [
+								"api",
+								"v1",
+								"workspaces",
+								"{{_workspace_Default Workspace}}",
+								"search"
+							]
+						},
+						"description": "## Prerequisite Calls for Automation\n\n- Authentication -> Login(Local)\n    \n- Workspace -> Get All Workspaces\n    \n- Dataset -> Create Dataset (to see at least one entry)\n    \n- Dataset -> Run Ingestion (to see at least one entry)\n    \n- Dataset -> Notebooks -> Create Notebook (to see at least one entry)"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "jwt",
+		"jwt": [
+			{
+				"key": "algorithm",
+				"value": "HS256",
+				"type": "string"
+			},
+			{
+				"key": "isSecretBase64Encoded",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "payload",
+				"value": "{}",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "headerPrefix",
+				"value": "Bearer",
+				"type": "string"
+			},
+			{
+				"key": "queryParamKey",
+				"value": "token",
+				"type": "string"
+			},
+			{
+				"key": "header",
+				"value": "{}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Check every request for error Codes.",
+					"pm.test(\"Status code is 200, 201, 202 or 204\", function () {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202, 204]);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "SEDAR-IP",
+			"value": "127.0.0.1",
+			"type": "string"
+		},
+		{
+			"key": "SEDAR-Port",
+			"value": "5000",
+			"type": "string"
+		},
+		{
+			"key": "E-Mail",
+			"value": "admin",
+			"type": "string"
+		},
+		{
+			"key": "Password",
+			"value": "admin",
+			"type": "string"
+		},
+		{
+			"key": "_language",
+			"value": ""
+		}
+	]
+}

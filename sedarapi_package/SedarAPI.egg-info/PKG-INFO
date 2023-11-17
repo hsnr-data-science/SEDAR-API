@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: SedarAPI
+Version: 1.0
+Summary: Eine abstrahierende Schnittstelle für die Interaktion mit der API des Data Lakes 'SEDAR'
+Home-page: UNKNOWN
+Author: Nico Kuth
+Author-email: nico.kuth@stud.hn.de
+License: UNKNOWN
+Description: # SedarAPI
+        
+        Eine abstrahierende Schnittstelle fÃ¼r den Zugriff auf eine API.
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
