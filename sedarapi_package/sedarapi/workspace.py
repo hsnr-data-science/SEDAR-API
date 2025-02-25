@@ -883,7 +883,8 @@ class Workspace:
             file_name = os.path.basename(file_paths)
             # If it is a valid path, open the file and add it to "files"
             if os.path.exists(file_paths):
-                files = {Commons._remove_file_extension(file_name): (file_name, open(file_paths, 'rb'), "application/vnd.ms-excel")}
+                print(file_name)
+                files = {os.path.splitext(file_name)[0]: (file_name, open(file_paths, 'rb'), "application/vnd.ms-excel")}
             else:
                 self.logger.error(f"File not found: {file_paths}")
                 return None
@@ -895,7 +896,7 @@ class Workspace:
                 file_name = os.path.basename(path)
                 # If it is a valid path, open the file and add it to "files"
                 if os.path.exists(path):
-                    files[Commons._remove_file_extension(file_name)] = (file_name, open(path, 'rb'), "application/vnd.ms-excel")
+                    files[os.path.splitext(file_name)[0]] = (file_name, open(path, 'rb'), "application/vnd.ms-excel")
                 else:
                     self.logger.error(f"File not found: {path}")
                     return None

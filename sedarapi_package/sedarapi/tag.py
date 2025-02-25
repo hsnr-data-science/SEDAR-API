@@ -16,7 +16,7 @@ class Tag:
         self.content = self._get_tag_json(self.workspace, self.dataset, self.id)
 
         # Extract some members from the "content" attribute
-        self.title = self.content["title"]
+        #self.title = self.content["title"]
         # ...
     
     #--------------------------------------------------------------

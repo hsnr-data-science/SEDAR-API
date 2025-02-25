@@ -310,7 +310,7 @@ class Dataset:
         tags_info = self._get_all_tags(self.workspace, self.id)
         return [Tag(self.connection, self.workspace, self.id, tag_info["id"]) for tag_info in tags_info]
     
-    def add_tag(self, title: str, ontology: Type[Ontology], annotation: Type[Annotation]) -> Tag:
+    def add_tag(self, ontology: Type[Ontology], annotation: Type[Annotation]) -> Tag:
         """
         Adds a tag to the dataset.
 
@@ -334,7 +334,7 @@ class Dataset:
         dataset = workspace.get_all_datasets()[0]
         ontology = workspace.get_all_ontologies()[0]
         try:
-            new_tag = dataset.add_tag(ontology, "Sample Title", "Sample Annotation")
+            new_tag = dataset.add_tag(ontology, "Sample Annotation")
             print(new_tag.content)
         except Exception as e:
             print(e)
@@ -344,7 +344,7 @@ class Dataset:
         if ontology.graph_id != annotation.graph_id:
             raise Exception(f"The passed Annotation {annotation.title} does not belong to the passed Ontology '{ontology.title}'. Please pass an Annotation that belongs to the passed Ontology.")
 
-        return Tag(self.connection, self.workspace, self.id, self._add_tag(self.workspace, self.id, title, annotation.string, ontology.id)["id"])
+        return Tag(self.connection, self.workspace, self.id, self._add_tag(self.workspace, self.id, annotation.string, ontology.id)["id"])
     
 
     ##############################
@@ -1587,8 +1587,8 @@ class Dataset:
             "session_id": self.connection.session_id,
             "query": query
         }
-
-        response = self.connection._get_resource(resource_path, payload)
+        print("modified!")
+        response = self.connection._post_resource(resource_path, payload)
         if response is None:
             raise Exception(f"The query '{query}' for Dataset '{dataset_id}' could not be executed. Set the logger level to \"Error\" or below to get more detailed information.")
     
@@ -1620,19 +1620,18 @@ class Dataset:
         return response
 
     #--------------------------------------------------------------
-    def _add_tag(self, workspace_id, dataset_id, title, annotation, ontology_id):
+    def _add_tag(self, workspace_id, dataset_id, annotation, ontology_id):
         resource_path=f"/api/v1/workspaces/{workspace_id}/datasets/{dataset_id}/tags"
         payload = {
-            "title": title,
             "annotation": annotation,
             "ontology_id": ontology_id
         }
 
         response = self.connection._post_resource(resource_path, payload)
         if response is None:
-            raise Exception(f"The Tag '{title}' for Dataset '{dataset_id}' could not be added. Set the logger level to \"Error\" or below to get more detailed information.")
+            raise Exception(f"The Tag '{annotation.title}' for Dataset '{dataset_id}' could not be added. Set the logger level to \"Error\" or below to get more detailed information.")
 
-        self.logger.info(f"The Tag '{title}' for Dataset '{dataset_id}' was added successfully.")
+        self.logger.info(f"The Tag '{annotation.title}' for Dataset '{dataset_id}' was added successfully.")
         return response
     
 
